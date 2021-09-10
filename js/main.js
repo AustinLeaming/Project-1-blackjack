@@ -1,0 +1,1 @@
+gameBoardEl = document.querySelector('#gameboard');
