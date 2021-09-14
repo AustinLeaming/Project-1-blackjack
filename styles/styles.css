@@ -68,6 +68,7 @@ button {
 .init:hover {
     color: #46cc51;
     background-color: white;
+    border: solid #46cc51;
 }
 
 /* hit button */
@@ -79,7 +80,7 @@ button {
 .hitBtnStyle:hover{
     color: #46cc51;
     background-color: white;
-    border: 10px, solid, #46cc51;
+    border: solid #46cc51;
 }
 
 /* stand button */
@@ -91,6 +92,7 @@ button {
 .standBtnStyle:hover{
     color: rgb(255, 64, 64);
     background-color: white;
+    border: solid rgb(255, 64, 64);
 }
 
 /* inactive button */
