@@ -2,8 +2,6 @@
 const cardSuits = ['Spade', 'Heart', 'Club', 'Diamond'];
 const cardValue = ['A', 'K', 'Q', 'J', 10, 9, 8, 7, 6, 5, 4, 3, 2];
 const unshuffledDeck = [];
-const playerHand = [];
-const computerHand = [];
 
 //variables 
 let nextCardIndex = 0;
@@ -12,6 +10,8 @@ let computerScore = 0;
 let newPlayerCard = 0;
 let newComputerCard = 0;
 let shuffledDeck = [];
+let playerHand = [];
+let computerHand = [];
 
 //Dom declarations
 const playerScoreEl = document.querySelector('#playerScore');
@@ -41,8 +41,10 @@ function shuffleCards(){
     shuffledDeck = unshuffledDeck.sort((a, b) => 0.5 - Math.random())
 }
 
-//deal button function - deal first 2 cards to player, 2 to computer keep 2nd card secret - render?
+//deal button function - deal first 2 cards to player, 2 to computer keep 2nd card secret
 function dealBtnFn(){
+    clearBoard();
+    clearHands();
     shuffleCards();
     passFirstRoundHand();
     getButtonStyles();
@@ -51,18 +53,34 @@ function dealBtnFn(){
 //set styles for buttons once deal button is pressed
 function getButtonStyles(){
     dealEl.classList.add('inactive');
+    dealEl.classList.remove('active');
     hitEl.classList.add('hitBtnStyle');
+    hitEl.classList.remove('inactive')
     standEl.classList.add('standBtnStyle');
+    standEl.classList.remove('inactive');
 }
 
-// function resetBtns(){
-//     dealEl.classList.remove('inactive');
-//     dealEl.classList.add('active');
-//     hitEl.classList.remove('hitBtnStyle');
-//     hitEl.classList.add('inactive');
-//     standEl.classList.remove('standBtnStyle');
-//     standEl.classList.add('inactive');
-// }
+//remove styles and set to default
+function resetBtns(){
+    dealEl.classList.remove('inactive');
+    dealEl.classList.add('active');
+    hitEl.classList.remove('hitBtnStyle');
+    hitEl.classList.add('inactive');
+    standEl.classList.remove('standBtnStyle');
+    standEl.classList.add('inactive');
+}
+
+// when stand button is pressed check computer hand to see if they need to hit or not 
+function standBtnFn(){
+    getComputerScore()
+}
+
+// when hit button is pressed increase player hand by next card in shuffled deck, keep track of index
+function hitBtnFn(){
+    playerHand.push(shuffledDeck[nextCardIndex]);
+    increaseNextCardIndex();
+    getPlayerScore();
+}
 
 //keeps track of which card to pull out of the shuffled deck, once it hits 52 run the function to reset
 function increaseNextCardIndex(){
@@ -102,7 +120,55 @@ function passFirstRoundHand(){
 
 //player win function
 function setPlayerWinner(){
-    console.log('win')
+    playerScoreEl.innerHTML = `Player wins - ${playerScore}`
+    computerScoreEl.innerHTML = `Busted - ${computerScore}`
+    console.log('player wins')
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+}
+
+//function to declare the computer the winner
+function setComputerWinner(){
+    computerScoreEl.innerHTML = `Dealer wins - ${computerScore}`
+    console.log('computer wins')
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+}
+
+function setTieWinner(){
+    console.log('Tie game')
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+    clearBoard();
+}
+
+function updateHistoryLog(){
+    let ul = document.querySelector('#log')
+    let li = document.createElement("li")
+    li.innerText = `Player score: ${playerScore} - Computer score: ${computerScore}`
+    ul.appendChild(li);
+}
+
+//clears the value in HTML
+function clearBoard(){
+    playerScoreEl.innerHTML = '';
+    computerScoreEl.innerHTML = '';
+}
+
+//after winner is declared, set score to zero
+function clearScore(){
+    playerScore = 0;
+    computerScore = 0;
+}
+
+//after winner is declared, set both players hand to nothing
+function clearHands(){
+    playerHand = [];
+    computerHand = [];
+    resetBtns();
 }
 
 //pass the 2nd card in the index to the computer
@@ -111,7 +177,7 @@ function setPlayerWinner(){
 //calculate the score of the computers hand
 function passComputerHand(){
     computerHand.push(shuffledDeck[nextCardIndex])
-    renderComputerScore();
+    updateComputerScoreinHTML();
     increaseNextCardIndex();
     passFirstRoundHand();
 }
@@ -126,20 +192,21 @@ function getPlayerScore(){
     } else{
         playerScore += playerHand[newPlayerCard].Value;
     }
-    renderPlayerScore();
+    updatePlayerScoreinHTML();
     if (playerScore>21){
-        busted();
+        bustedPlayer();
     }
 }
 
 //updates player score in HTML
-function renderPlayerScore(){
+function updatePlayerScoreinHTML(){
     playerScoreEl.innerHTML = playerScore;
 }
 
 //calculates the computers hand
 function getComputerScore(){
-    for (i=0;i<2;i++){
+    computerScore = 0;
+    for (i=0;i<computerHand.length;i++){
         if (computerHand[i].Value === 'K' || computerHand[i].Value === 'Q' || computerHand[i].Value === "J"){
             computerScore = computerScore + 10;
         } else if (computerHand[i].Value === 'A'){
@@ -148,42 +215,45 @@ function getComputerScore(){
             computerScore = computerScore + computerHand[i].Value;
         }
     }
-    // renderComputerScore();
-    if (computerScore21){
-        busted();
+    checkComputerHand();
+}
+
+function checkComputerHand(){
+    if (computerScore <= 17){
+        computerHand.push(shuffledDeck[nextCardIndex])
+        //calculateComputerScore();
+        getComputerScore();
+    } else if (computerScore >= 17 && computerScore <= 21){
+        compareHand();
+    } else if (computerScore > 21){
+        bustedComputer();
+    }
+}
+
+//compare the hands after the player stands and the computer has less than 21.
+function compareHand(){
+    if (playerScore > computerScore){
+        setPlayerWinner();
+    } else if (computerScore > playerScore){
+        setComputerWinner();
+    } else if (computerScore == playerScore){
+        setTieWinner();
     }
 }
 
 //updates computer score in HTML
-function renderComputerScore(){
+function updateComputerScoreinHTML(){
     computerScoreEl.innerHTML = computerHand[0].Value;
 }
 
-//reveal the second hand of the computer and add the value
-function getComputerSecondHand(){
-    computerScore = computerHand[1].Value + computerHand[0].Value + computerScore;
-    if (computerScore<17){
-
-    }
+function bustedComputer(){
+    computerScoreEl.innerHTML = `Busted - ${computerScore}`
+    setPlayerWinner();
 }
 
-function busted(){
+function bustedPlayer(){
     playerScoreEl.innerHTML = `Busted - ${playerScore}`
-    resetBtns();
+    setComputerWinner();
 }
-
-// when stand button is pressed check computer hand to see if they need to hit or not 
-function standBtnFn(){
-    getComputerScore()
-}
-
-// when hit button is pressed increase player hand by next card in shuffled deck, keep track of index
-function hitBtnFn(){
-    playerHand.push(shuffledDeck[nextCardIndex]);
-    increaseNextCardIndex();
-    getPlayerScore();
-}
-
-
 
 // 

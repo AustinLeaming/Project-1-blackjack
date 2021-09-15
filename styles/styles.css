@@ -23,6 +23,16 @@ body {
     border-radius: 10px;
 }
 
+#history {
+    margin:auto;
+    text-align: center;
+    background-color: white;
+}
+
+#log{
+    font-size: small;
+}
+
 #computerBoard {
     background-color: rgb(196, 255, 255);
     border-top-left-radius: 10px;
