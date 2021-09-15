@@ -101,3 +101,7 @@ button {
     background-color: black;
     pointer-events: none;
 }
+
+.active {
+    pointer-events: all;
+}

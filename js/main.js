@@ -6,18 +6,21 @@ const playerHand = [];
 const computerHand = [];
 
 //variables 
-let nextCardIndex = 4;
+let nextCardIndex = 0;
 let playerScore = 0;
 let computerScore = 0;
-let newCard = 0;
+let newPlayerCard = 0;
+let newComputerCard = 0;
+let shuffledDeck = [];
 
 //Dom declarations
 const playerScoreEl = document.querySelector('#playerScore');
 const computerScoreEl = document.querySelector('#computerScore');
+
 //button elements & listeners
 //deal button
 const dealEl = document.querySelector('#dealBtn');
-dealEl.addEventListener('click', dealHand);
+dealEl.addEventListener('click', dealBtnFn);
 //hit button
 const hitEl = document.querySelector('#hitBtn')
 hitEl.addEventListener('click', hitBtnFn);
@@ -34,111 +37,153 @@ for (let i = 0; i < cardSuits.length; i++){
 }
 
 //shuffle deck
-const shuffledDeck = unshuffledDeck.sort((a, b) => 0.5 - Math.random())
-
-//deal button function - deal first 2 cards to player, 2 to computer keep 2nd card secret - render?
-function dealHand(){
-    playerHand.push(shuffledDeck[0], shuffledDeck[2]);
-    computerHand.push(shuffledDeck[1], shuffledDeck[3]);
-    // removeCardFromShuffledDeck();
-    getButtonStyles();
-    firstHandDealPlayer();
-    firstHandDealComputer();
+function shuffleCards(){
+    shuffledDeck = unshuffledDeck.sort((a, b) => 0.5 - Math.random())
 }
 
-// function removeCardFromShuffledDeck(){
-//     shuffledDeck.pop(i)
-// }
+//deal button function - deal first 2 cards to player, 2 to computer keep 2nd card secret - render?
+function dealBtnFn(){
+    shuffleCards();
+    passFirstRoundHand();
+    getButtonStyles();
+}
 
+//set styles for buttons once deal button is pressed
 function getButtonStyles(){
     dealEl.classList.add('inactive');
     hitEl.classList.add('hitBtnStyle');
     standEl.classList.add('standBtnStyle');
 }
 
-//check the value of the initial player hand
-function firstHandDealPlayer(){
-    for (let i = 0; i < playerHand.length; i++){
-        if (playerHand[i].Value === 'K' || playerHand[i].Value === 'Q' || playerHand[i].Value === 'J'){
-            console.log(playerHand[i].Value, 'player hand')
-            playerScore = playerScore + 10;
-        } else if (playerHand[i].Value ==='A'){
-            console.log(playerHand[i].Value, 'player hand')
-            playerScore = playerScore + 11;
-        } else {
-            console.log(playerHand[i].Value, 'player hand')
-            playerScore = playerHand[i].Value + playerScore;
+// function resetBtns(){
+//     dealEl.classList.remove('inactive');
+//     dealEl.classList.add('active');
+//     hitEl.classList.remove('hitBtnStyle');
+//     hitEl.classList.add('inactive');
+//     standEl.classList.remove('standBtnStyle');
+//     standEl.classList.add('inactive');
+// }
+
+//keeps track of which card to pull out of the shuffled deck, once it hits 52 run the function to reset
+function increaseNextCardIndex(){
+    nextCardIndex++
+    //check to see if cards are running out
+    checkRemainingCards();
+}
+
+//if the index for picking cards exceeds the amount of cards, reset the index
+function checkRemainingCards(){
+    if(nextCardIndex > 52){
+        resetDeck();
+    }
+}
+
+//reshuffle the deck and set the index for choosing cards to 0
+function resetDeck(){
+    nextCardIndex=0;
+    shuffleCards();
+}
+
+//start off by giving the player the first card in the deck
+//calculate the value of that card
+//increase the index to pick the card
+//go to the function to pass the computer card
+function passFirstRoundHand(){
+    while(playerHand.length<2){
+        playerHand.push(shuffledDeck[nextCardIndex]);
+        getPlayerScore();
+        increaseNextCardIndex();
+        passComputerHand();
+        if(playerScore==21){
+            setPlayerWinner();
         }
-        playerScoreEl.innerHTML = playerScore
-    }
+    }   
 }
 
-//check the value of the initial comptuer hand
-function firstHandDealComputer(){
-    for (let i = 0; i < 1; i++){
-        if (computerHand[i].Value === 'K' || computerHand[i].Value === 'Q' || computerHand[i].Value === 'J'){
-            console.log(computerHand[i].Value, 'computer hand')
-            computerScore = computerScore + 10;
-        } else if (computerHand[i].Value ==='A'){
-            console.log(computerHand[i].Value, 'computer hand')
-            computerScore = computerScore + 11;
-        } else {
-            console.log(computerHand[i].Value, 'computer hand')
-            computerScore = computerHand[i].Value + computerScore;
-        }
-        renderComputerScore()
-    }
+//player win function
+function setPlayerWinner(){
+    console.log('win')
 }
 
-//display the computer score on screen
-function renderComputerScore(){
-    computerScoreEl.innerHTML = computerScore
-    if (computerScore>21){
-        console.log('playerwins')
-    }
-}
-
-//reveal the second hand of the computer and add the value
-function getComputerSecondHand(){
-    computerScore = computerHand[1].Value + computerScore;
-    console.log('te')
+//pass the 2nd card in the index to the computer
+//increase the counter index for picking cardds
+//pass the index back to the player so they can get the 3rd card
+//calculate the score of the computers hand
+function passComputerHand(){
+    computerHand.push(shuffledDeck[nextCardIndex])
     renderComputerScore();
+    increaseNextCardIndex();
+    passFirstRoundHand();
 }
 
-// when hit button is pressed increase player hand by next card in shuffled deck, keep track of index
-function hitBtnFn(){
-    playerHand.push(shuffledDeck[nextCardIndex]);
-    nextCardIndex ++;
-    getPlayerScore();
-}
-
+//calculates the player score
 function getPlayerScore(){
-    newCard = playerHand.length - 1
-    if (playerHand[newCard].Value === 'K' || playerHand[newCard].Value === 'Q' || playerHand[newCard].Value === 'J'){
+    newPlayerCard = playerHand.length - 1
+    if (playerHand[newPlayerCard].Value === 'K' || playerHand[newPlayerCard].Value === 'Q' || playerHand[newPlayerCard].Value === 'J'){
         playerScore = playerScore + 10;
-    } else if(playerHand[newCard].Value === 'A'){
+    } else if(playerHand[newPlayerCard].Value === 'A'){
         playerScore = playerScore + 11;
     } else{
-        playerScore += playerHand[newCard].Value;
+        playerScore += playerHand[newPlayerCard].Value;
     }
-    updatePlayerScoreInHTML();
+    renderPlayerScore();
     if (playerScore>21){
         busted();
     }
 }
 
-function busted(){
-    
-    console.log('busted');
+//updates player score in HTML
+function renderPlayerScore(){
+    playerScoreEl.innerHTML = playerScore;
 }
 
-function updatePlayerScoreInHTML(){
-    playerScoreEl.innerHTML = playerScore;
+//calculates the computers hand
+function getComputerScore(){
+    for (i=0;i<2;i++){
+        if (computerHand[i].Value === 'K' || computerHand[i].Value === 'Q' || computerHand[i].Value === "J"){
+            computerScore = computerScore + 10;
+        } else if (computerHand[i].Value === 'A'){
+            computerScore = computerScore + 11;
+        } else{
+            computerScore = computerScore + computerHand[i].Value;
+        }
+    }
+    // renderComputerScore();
+    if (computerScore21){
+        busted();
+    }
+}
+
+//updates computer score in HTML
+function renderComputerScore(){
+    computerScoreEl.innerHTML = computerHand[0].Value;
+}
+
+//reveal the second hand of the computer and add the value
+function getComputerSecondHand(){
+    computerScore = computerHand[1].Value + computerHand[0].Value + computerScore;
+    if (computerScore<17){
+
+    }
+}
+
+function busted(){
+    playerScoreEl.innerHTML = `Busted - ${playerScore}`
+    resetBtns();
 }
 
 // when stand button is pressed check computer hand to see if they need to hit or not 
 function standBtnFn(){
-    getComputerSecondHand()
+    getComputerScore()
 }
+
+// when hit button is pressed increase player hand by next card in shuffled deck, keep track of index
+function hitBtnFn(){
+    playerHand.push(shuffledDeck[nextCardIndex]);
+    increaseNextCardIndex();
+    getPlayerScore();
+}
+
+
 
 // 
