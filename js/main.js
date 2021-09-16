@@ -99,7 +99,7 @@ function increaseNextCardIndex(){
 
 //if the index for picking cards exceeds the amount of cards, reset the index
 function checkRemainingCards(){
-    if(nextCardIndex > 52){
+    if(nextCardIndex >= 52){
         resetDeck();
     }
 }
@@ -111,11 +111,8 @@ function resetDeck(){
 }
 
 function createPlayerVisualCard(){
-    let playerBoard = document.querySelector('#playerBoardSpace');
-    let playerCard = document.createElement('div');
-    playerCard.setAttribute('id', 'playerCard')
-    playerCard.innerText = `${playerHand[0].Value} ${playerHand[0].Suit}`;
-    playerBoard.appendChild(playerCard);
+    let firstCard = document.querySelector('#firstPlayerHand');
+    firstCard.innerText = `${playerHand[0].Value} ${playerHand[0].Suit}`;
 }
 
 function removeVisualCards(){
@@ -123,8 +120,6 @@ function removeVisualCards(){
     let playerBoard = document.querySelector('#playerBoardSpace');
     computerBoard.innerHTML = null;
     computerBoard.innerText = null;
-    playerBoard.innerText = null;
-    playerBoard.innerText = null;
 }
 
 //when deal button is pressed
@@ -249,7 +244,7 @@ function compareHand(){
         setPlayerWinner();
     } else if (computerScore > playerScore){
         setComputerWinner();
-    } else if (computerScore == playerScore){
+    } else if (computerScore === playerScore){
         setTieWinner();
     }
 }
@@ -300,5 +295,4 @@ function setTieWinner(){
     updateHistoryLog();
     clearHands();
     clearScore();
-    clearBoard();
 }

@@ -33,7 +33,7 @@ body {
     font-size: small;
 }
 
-#playerCard{
+#firstPlayerHand{
     background-color: white;
     height: 100px;
     width: 75px;
@@ -58,23 +58,11 @@ body {
     border-radius: 10px;
 }
 
-#computerCard{
+#computerCard, #mysteryCard{
     background-color: white;
     height: 100px;
     width: 75px;
     margin:15px 15px 15px 5px;
-    text-align: center;
-    font-size:large;
-    border: solid black;
-    border-radius: 10px;
-}
-
-#mysteryCard{
-    background-color: white;
-    height: 100px;
-    width: 75px;
-    margin:15px 5px 15px 15px;
-    display: inline-block;
     text-align: center;
     font-size:large;
     border: solid black;
