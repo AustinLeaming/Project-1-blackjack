@@ -1,5 +1,5 @@
 //constants
-const cardSuits = ['Spade', 'Heart', 'Club', 'Diamond'];
+const cardSuits = ['♠', '♥', '♣', '♦'];
 const cardValue = ['A', 'K', 'Q', 'J', 10, 9, 8, 7, 6, 5, 4, 3, 2];
 const unshuffledDeck = [];
 
@@ -42,12 +42,20 @@ function shuffleCards(){
 }
 
 //deal button function - deal first 2 cards to player, 2 to computer keep 2nd card secret
+//clears the board
+//clears hands of player and computer
+//shuffles cards
+//passes out the first round of hands
+//sets styles for the buttons
 function dealBtnFn(){
     clearBoard();
     clearHands();
     shuffleCards();
     passFirstRoundHand();
     getButtonStyles();
+    createPlayerVisualCard();
+    removeVisualCards();
+    createVisualCards();
 }
 
 //set styles for buttons once deal button is pressed
@@ -102,6 +110,31 @@ function resetDeck(){
     shuffleCards();
 }
 
+function createPlayerVisualCard(){
+    let playerBoard = document.querySelector('#playerBoardSpace');
+    let playerCard = document.createElement('div');
+    playerCard.setAttribute('id', 'playerCard')
+    playerCard.innerText = `${playerHand[0].Value} ${playerHand[0].Suit}`;
+    playerBoard.appendChild(playerCard);
+}
+
+function removeVisualCards(){
+    let computerBoard = document.querySelector('#computerCard');
+    let playerBoard = document.querySelector('#playerBoardSpace');
+    computerBoard.innerHTML = null;
+    computerBoard.innerText = null;
+    playerBoard.innerText = null;
+    playerBoard.innerText = null;
+}
+
+//when deal button is pressed
+function createVisualCards(){
+    let computerBoard = document.querySelector('#computerCard');
+    let computerCard = document.createElement('div')
+    computerCard.innerText = `${computerHand[0].Value} ${computerHand[0].Suit}`
+    computerBoard.appendChild(computerCard);
+}
+
 //start off by giving the player the first card in the deck
 //calculate the value of that card
 //increase the index to pick the card
@@ -115,36 +148,10 @@ function passFirstRoundHand(){
         if(playerScore==21){
             setPlayerWinner();
         }
-    }   
+    }
 }
 
-//player win function
-function setPlayerWinner(){
-    playerScoreEl.innerHTML = `Player wins - ${playerScore}`
-    computerScoreEl.innerHTML = `Busted - ${computerScore}`
-    console.log('player wins')
-    updateHistoryLog();
-    clearHands();
-    clearScore();
-}
-
-//function to declare the computer the winner
-function setComputerWinner(){
-    computerScoreEl.innerHTML = `Dealer wins - ${computerScore}`
-    console.log('computer wins')
-    updateHistoryLog();
-    clearHands();
-    clearScore();
-}
-
-function setTieWinner(){
-    console.log('Tie game')
-    updateHistoryLog();
-    clearHands();
-    clearScore();
-    clearBoard();
-}
-
+//appends score of previous game to the screen
 function updateHistoryLog(){
     let ul = document.querySelector('#log')
     let li = document.createElement("li")
@@ -164,7 +171,7 @@ function clearScore(){
     computerScore = 0;
 }
 
-//after winner is declared, set both players hand to nothing
+//after winner is declared, clear out both players hand
 function clearHands(){
     playerHand = [];
     computerHand = [];
@@ -193,8 +200,13 @@ function getPlayerScore(){
         playerScore += playerHand[newPlayerCard].Value;
     }
     updatePlayerScoreinHTML();
-    if (playerScore>21){
-        bustedPlayer();
+    checkForBust(playerScore);
+}
+
+//comes from getPlayerScore function
+function checkForBust(score){
+    if (score > 21){
+        bustedPlayer()
     }
 }
 
@@ -218,6 +230,7 @@ function getComputerScore(){
     checkComputerHand();
 }
 
+//checks whether or not the computer should pull another card, stays or busts
 function checkComputerHand(){
     if (computerScore <= 17){
         computerHand.push(shuffledDeck[nextCardIndex])
@@ -246,14 +259,46 @@ function updateComputerScoreinHTML(){
     computerScoreEl.innerHTML = computerHand[0].Value;
 }
 
+
+///////////////////////
+//outcomes of the game/
+///////////////////////
+
+//results if the computer busts
 function bustedComputer(){
     computerScoreEl.innerHTML = `Busted - ${computerScore}`
     setPlayerWinner();
 }
 
+//results if the player busts
 function bustedPlayer(){
     playerScoreEl.innerHTML = `Busted - ${playerScore}`
     setComputerWinner();
 }
 
-// 
+//player win function
+function setPlayerWinner(){
+    playerScoreEl.innerHTML = `Player wins - ${playerScore}`
+    computerScoreEl.innerHTML = `Busted - ${computerScore}`
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+}
+
+//function to declare the computer the winner
+function setComputerWinner(){
+    computerScoreEl.innerHTML = `Dealer wins - ${computerScore}`
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+}
+
+//results of tie game
+function setTieWinner(){
+    computerScoreEl.innerHTML = `Tie Game - ${computerScore}`;
+    playerScoreEl.innerHTML = `Tie game - ${playerScore}`;
+    updateHistoryLog();
+    clearHands();
+    clearScore();
+    clearBoard();
+}

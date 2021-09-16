@@ -33,8 +33,57 @@ body {
     font-size: small;
 }
 
-#computerBoard {
+#playerCard{
+    background-color: white;
+    height: 100px;
+    width: 75px;
+    margin:15px 5px 15px 15px;
+    display: inline-block;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#backOfDeck{
+    background-image: url('/Users/austin/uploadtogit/project1-blackjack/backOfCard.jpeg');
+    background-color: white;
+    background-size:contain;
+    margin: 15px;
+    height: 100px;
+    width: 75px;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#computerCard{
+    background-color: white;
+    height: 100px;
+    width: 75px;
+    margin:15px 15px 15px 5px;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#mysteryCard{
+    background-color: white;
+    height: 100px;
+    width: 75px;
+    margin:15px 5px 15px 15px;
+    display: inline-block;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#computerBoardSpace {
     background-color: rgb(196, 255, 255);
+    display: flex;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 175px;
@@ -46,7 +95,7 @@ body {
     text-align: center;
 }
 
-#playerBoard {
+#playerBoardSpace {
     background-color: rgb(255, 249, 196);
     height: 175px;
 }
