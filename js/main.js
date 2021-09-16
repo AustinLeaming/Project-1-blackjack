@@ -150,12 +150,11 @@ function passFirstRoundHand(){
         passComputerHand();
         checkForNattyBlackjack();
     }
-    CreateCardElements();
 }
 
-function CreateCardElements(){
-    console.log('card appears')
-}
+// function CreateCardElements(){
+//     let computerBoard = document.querySelector('#computerCard')
+// }
 
 function checkForNattyBlackjack(){
     if(playerScore==21){

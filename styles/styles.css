@@ -46,7 +46,7 @@ body {
 }
 
 #backOfDeck{
-    background-image: url('/Users/austin/uploadtogit/project1-blackjack/backOfCard.jpeg');
+    background-image: url('backOfCard.jpeg');
     background-color: white;
     background-size:contain;
     margin: 15px;
