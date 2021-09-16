@@ -55,7 +55,7 @@ function dealBtnFn(){
     getButtonStyles();
     createPlayerVisualCard();
     removeVisualCards();
-    createVisualCards();
+    createComputerCard();
 }
 
 //set styles for buttons once deal button is pressed
@@ -112,7 +112,15 @@ function resetDeck(){
 
 function createPlayerVisualCard(){
     let firstCard = document.querySelector('#firstPlayerHand');
-    firstCard.innerText = `${playerHand[0].Value} ${playerHand[0].Suit}`;
+    for (i=0;i<playerHand.length;i++){
+        let card = document.createElement('div')
+
+    }
+}
+
+function createSecondPlayerHTMLCard(){
+    let secondCard = document.querySelector('secondPlayerHand');
+    secondCard.innerText = `${playerHand[1].value} ${playerHand[1].Suit}`
 }
 
 function removeVisualCards(){
@@ -123,7 +131,7 @@ function removeVisualCards(){
 }
 
 //when deal button is pressed
-function createVisualCards(){
+function createComputerCard(){
     let computerBoard = document.querySelector('#computerCard');
     let computerCard = document.createElement('div')
     computerCard.innerText = `${computerHand[0].Value} ${computerHand[0].Suit}`
@@ -140,9 +148,18 @@ function passFirstRoundHand(){
         getPlayerScore();
         increaseNextCardIndex();
         passComputerHand();
-        if(playerScore==21){
-            setPlayerWinner();
-        }
+        checkForNattyBlackjack();
+    }
+    CreateCardElements();
+}
+
+function CreateCardElements(){
+    console.log('card appears')
+}
+
+function checkForNattyBlackjack(){
+    if(playerScore==21){
+    setPlayerWinner();
     }
 }
 
@@ -290,8 +307,8 @@ function setComputerWinner(){
 
 //results of tie game
 function setTieWinner(){
-    computerScoreEl.innerHTML = `Tie Game - ${computerScore}`;
-    playerScoreEl.innerHTML = `Tie game - ${playerScore}`;
+    computerScoreEl.innerHTML = `Push - ${computerScore}`;
+    playerScoreEl.innerHTML = `Push - ${playerScore}`;
     updateHistoryLog();
     clearHands();
     clearScore();
