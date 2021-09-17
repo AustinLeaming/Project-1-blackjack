@@ -1,26 +1,20 @@
-# Project-1-blackjack
+# link to game
 https://austinleaming.github.io/Project-1-blackjack/
 
-#*Game rules*
+# Blackjack
+Each participant attempts to beat the dealer by getting a count as close to 21 as possible, without going over 21.
 
-begin game by pressing the deal button.
-the value of the players/dealers hand is shown in the black boxes.
+# Game rules 
+- Dealer hits on 16
+- Ace is only equal to 11
+- 52 card deck is used - once all cards are used the deck is reshuffled
 
-Press Hit to increase your hand by the next available card.
-Press Stand to stop your turn.
+# Game function
+- Press Deal to deal your first hand
+- Hit or stand
 
-Once you stand the dealer then checks their second card, if their hand is less than 17 the dealer must hit.
-
-Winner results in whichever hand is closer to 21 without going over.
-
-The history of each hand is printed out underneath the main board.
-
-The shuffled deck consists of 52 cards, once all 52 cards have been played the deck is reshuffled. 
-
-
-Screenshots of gameplay
-https://i.imgur.com/GcW90tr.png
-https://i.imgur.com/E4s9oOn.png
-https://i.imgur.com/ScRDyVt.png
-https://i.imgur.com/XlyRlFH.png
-https://i.imgur.com/CfoJAbm.png
+![game start](https://i.imgur.com/GcW90tr.png)
+![2](https://i.imgur.com/E4s9oOn.png)
+![3](https://i.imgur.com/ScRDyVt.png)
+![4](https://i.imgur.com/XlyRlFH.png)
+![5](https://i.imgur.com/CfoJAbm.png)
