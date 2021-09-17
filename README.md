@@ -13,6 +13,16 @@ Each participant attempts to beat the dealer by getting a count as close to 21 a
 - Press Deal to deal your first hand
 - Hit or stand
 
+# Technologies used
+- Javascript for all logic
+- CSS for styling elements
+- HTML for framework elements
+
+# Future ideas
+- More design elements
+- Add more players
+- Sprite animates
+
 ![game start](https://i.imgur.com/GcW90tr.png)
 ![2](https://i.imgur.com/E4s9oOn.png)
 ![3](https://i.imgur.com/ScRDyVt.png)
