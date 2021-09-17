@@ -12,6 +12,7 @@ let newComputerCard = 0;
 let shuffledDeck = [];
 let playerHand = [];
 let computerHand = [];
+let playerBoard = document.querySelector('#playerBoardSpace');
 
 //Dom declarations
 const playerScoreEl = document.querySelector('#playerScore');
@@ -88,6 +89,7 @@ function hitBtnFn(){
     playerHand.push(shuffledDeck[nextCardIndex]);
     increaseNextCardIndex();
     getPlayerScore();
+    createPlayerVisualCard();
 }
 
 //keeps track of which card to pull out of the shuffled deck, once it hits 52 run the function to reset
@@ -111,11 +113,19 @@ function resetDeck(){
 }
 
 function createPlayerVisualCard(){
-    let firstCard = document.querySelector('#firstPlayerHand');
-    for (i=0;i<playerHand.length;i++){
-        let card = document.createElement('div')
-
-    }
+    document.getElementById('firstPlayerHand').innerText = null;
+    document.getElementById('secondPlayerHand').innerText = null;
+    playerHand.forEach(function(card,i){
+        console.log(card)
+        let HTMLcard = document.createElement('div');
+        HTMLcard.innerText = `${card.Value} ${card.Suit}`
+        // playerBoard.appendChild(HTMLcard)
+        if(i==0){
+            document.getElementById('firstPlayerHand').appendChild(HTMLcard)
+        } else {
+            document.getElementById('secondPlayerHand').appendChild(HTMLcard)
+        }
+    })
 }
 
 function createSecondPlayerHTMLCard(){
@@ -125,7 +135,6 @@ function createSecondPlayerHTMLCard(){
 
 function removeVisualCards(){
     let computerBoard = document.querySelector('#computerCard');
-    let playerBoard = document.querySelector('#playerBoardSpace');
     computerBoard.innerHTML = null;
     computerBoard.innerText = null;
 }
