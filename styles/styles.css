@@ -10,6 +10,10 @@ html {
 
 body {
     background-image: url('blackjack_bg.png');
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-rows: 1fr 2fr;
+    flex-direction: row;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -17,26 +21,35 @@ body {
 
 h1 {
     text-align: center;
+    grid-column: 2;
     margin-top: 100px;
     font-size: 100px;
 }
 
+audio {
+    grid-column: 3;
+    grid-row: 1;
+}
+
 #leftChar {
-    margin: 250px 0 0 95px;
+    margin: auto;
+    grid-column: 1;
+    grid-row: 2;
     height: 300px;
     display: flex;
-    position: absolute;
 }
 
 #rightChar {
+    margin: auto;
+    grid-column: 3;
+    grid-row: 2;
     height: 300px;
     display: flex;
-    position: absolute;
-    margin: 250px 0 0 650px;
 }
 
 #board {
     background-color: rgb(194, 194, 194);
+    grid-column: 2;
     margin: auto;
     margin-top: 50px;
     height: 500px;
