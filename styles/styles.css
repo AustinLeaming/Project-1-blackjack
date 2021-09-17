@@ -9,7 +9,8 @@ html {
 }
 
 body {
-    background-color: #256060;
+    background-image: url('blackjack_bg.png');
+    background-size: cover;
     height: 100%;
     width: 100%;
 }
