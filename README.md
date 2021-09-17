@@ -16,3 +16,11 @@ Winner results in whichever hand is closer to 21 without going over.
 The history of each hand is printed out underneath the main board.
 
 The shuffled deck consists of 52 cards, once all 52 cards have been played the deck is reshuffled. 
+
+
+Screenshots of gameplay
+https://i.imgur.com/GcW90tr.png
+https://i.imgur.com/E4s9oOn.png
+https://i.imgur.com/ScRDyVt.png
+https://i.imgur.com/XlyRlFH.png
+https://i.imgur.com/CfoJAbm.png
