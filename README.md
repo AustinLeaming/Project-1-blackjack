@@ -1,7 +1,7 @@
 # Project-1-blackjack
 https://austinleaming.github.io/Project-1-blackjack/
 
-*Game rules*
+#*Game rules*
 
 begin game by pressing the deal button.
 the value of the players/dealers hand is shown in the black boxes.
@@ -19,7 +19,7 @@ The shuffled deck consists of 52 cards, once all 52 cards have been played the d
 
 
 Screenshots of gameplay
-https://i.imgur.com/GcW90tr.png
+!(https://i.imgur.com/GcW90tr.png)
 https://i.imgur.com/E4s9oOn.png
 https://i.imgur.com/ScRDyVt.png
 https://i.imgur.com/XlyRlFH.png
