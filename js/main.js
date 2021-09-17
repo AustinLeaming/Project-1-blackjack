@@ -49,14 +49,27 @@ function shuffleCards(){
 //passes out the first round of hands
 //sets styles for the buttons
 function dealBtnFn(){
+    removeHTMLEl();
     clearBoard();
     clearHands();
     shuffleCards();
     passFirstRoundHand();
     getButtonStyles();
     createPlayerVisualCard();
-    removeVisualCards();
-    createComputerCard();
+    createComputerVisualCard();
+    // removeVisualCards();
+    // createComputerCard();
+}
+
+//remove cards in player space
+function removeHTMLEl(){
+    document.getElementById('firstPlayerHand').style.display = 'none';
+    document.getElementById('secondPlayerHand').style.display = 'none';
+    document.getElementById('thirdPlayerHand').style.display = 'none';
+    document.getElementById('fourthPlayerHand').style.display = 'none';
+    document.getElementById('computerCard').style.display = 'none';
+    document.getElementById('thirdComputerHand').style.display = 'none';
+    document.getElementById('fourthComputerHand').style.display = 'none';
 }
 
 //set styles for buttons once deal button is pressed
@@ -115,22 +128,68 @@ function resetDeck(){
 function createPlayerVisualCard(){
     document.getElementById('firstPlayerHand').innerText = null;
     document.getElementById('secondPlayerHand').innerText = null;
+    document.getElementById('thirdPlayerHand').innerText = null;
+    document.getElementById('fourthPlayerHand').innerText = null;
+
+    if (playerHand.length > 0){
+        document.getElementById('firstPlayerHand').style.display = 'inline-block';
+    }
+
+    if (playerHand.length > 1){
+        document.getElementById('secondPlayerHand').style.display = 'inline-block';
+    }
+
+    if(playerHand.length > 2){
+        document.getElementById('thirdPlayerHand').style.display = 'inline-block';
+    } 
+
+    if(playerHand.length > 3){
+        document.getElementById('fourthPlayerHand').style.display = 'inline-block';
+    }
+
     playerHand.forEach(function(card,i){
-        console.log(card)
         let HTMLcard = document.createElement('div');
         HTMLcard.innerText = `${card.Value} ${card.Suit}`
-        // playerBoard.appendChild(HTMLcard)
         if(i==0){
             document.getElementById('firstPlayerHand').appendChild(HTMLcard)
-        } else {
+        } else if(i==1) {
             document.getElementById('secondPlayerHand').appendChild(HTMLcard)
+        } else if (i==2){
+            document.getElementById('thirdPlayerHand').appendChild(HTMLcard)
+        } else if (i==3){
+            document.getElementById('fourthPlayerHand').appendChild(HTMLcard)
         }
     })
 }
 
-function createSecondPlayerHTMLCard(){
-    let secondCard = document.querySelector('secondPlayerHand');
-    secondCard.innerText = `${playerHand[1].value} ${playerHand[1].Suit}`
+function createComputerVisualCard(){
+    document.getElementById('computerCard').innerText = null;
+    document.getElementById('thirdComputerHand').innerText = null;
+    document.getElementById('fourthComputerHand').innerText = null;
+
+    if (computerHand.length > 1){
+        document.getElementById('computerCard').style.display = 'inline-block';
+    }
+
+    if(computerHand.length > 2){
+        document.getElementById('thirdComputerHand').style.display = 'inline-block';
+    } 
+
+    if(computerHand.length > 3){
+        document.getElementById('fourthComputerHand').style.display = 'inline-block';
+    }
+
+    computerHand.forEach(function(card,i){
+        let HTMLcard = document.createElement('div');
+        HTMLcard.innerText = `${card.Value} ${card.Suit}`
+        if(i==0){
+            document.getElementById('computerCard').appendChild(HTMLcard)
+        } else if(i==1) {
+            document.getElementById('thirdComputerHand').appendChild(HTMLcard)
+        } else if (i==2){
+            document.getElementById('fourthComputerHand').appendChild(HTMLcard)
+        }
+    })
 }
 
 function removeVisualCards(){

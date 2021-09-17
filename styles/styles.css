@@ -14,6 +14,14 @@ body {
     width: 100%;
 }
 
+h1 {
+    margin: auto;
+    margin-top: 200px;
+    color: white;
+    display: inline;
+    text-align: center;
+}
+
 #board {
     background-color: rgb(194, 194, 194);
     margin: auto;
@@ -38,7 +46,31 @@ body {
     height: 100px;
     width: 75px;
     margin:15px 5px 15px 15px;
-    display: inline-block;
+    display: none;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#thirdPlayerHand{
+    background-color: white;
+    height: 100px;
+    width: 75px;
+    margin:15px 5px 15px 15px;
+    display: none;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#fourthPlayerHand{
+    background-color: white;
+    height: 100px;
+    width: 75px;
+    margin:15px 5px 15px 15px;
+    display: none;
     text-align: center;
     font-size:large;
     border: solid black;
