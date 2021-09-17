@@ -57,8 +57,6 @@ function dealBtnFn(){
     getButtonStyles();
     createPlayerVisualCard();
     createComputerVisualCard();
-    // removeVisualCards();
-    // createComputerCard();
 }
 
 //remove cards in player space
@@ -125,6 +123,7 @@ function resetDeck(){
     shuffleCards();
 }
 
+//creates the visual for the cards in the DOM
 function createPlayerVisualCard(){
     document.getElementById('firstPlayerHand').innerText = null;
     document.getElementById('secondPlayerHand').innerText = null;
@@ -162,6 +161,7 @@ function createPlayerVisualCard(){
     })
 }
 
+//creates the visuals for the computer
 function createComputerVisualCard(){
     document.getElementById('computerCard').innerText = null;
     document.getElementById('thirdComputerHand').innerText = null;
@@ -192,12 +192,6 @@ function createComputerVisualCard(){
     })
 }
 
-function removeVisualCards(){
-    let computerBoard = document.querySelector('#computerCard');
-    computerBoard.innerHTML = null;
-    computerBoard.innerText = null;
-}
-
 //when deal button is pressed
 function createComputerCard(){
     let computerBoard = document.querySelector('#computerCard');
@@ -220,10 +214,7 @@ function passFirstRoundHand(){
     }
 }
 
-// function CreateCardElements(){
-//     let computerBoard = document.querySelector('#computerCard')
-// }
-
+//checks for a natural blackjack in the player hand
 function checkForNattyBlackjack(){
     if(playerScore==21){
     setPlayerWinner();
