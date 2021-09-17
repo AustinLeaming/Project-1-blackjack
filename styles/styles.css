@@ -14,14 +14,6 @@ body {
     width: 100%;
 }
 
-h1 {
-    margin: auto;
-    margin-top: 200px;
-    color: white;
-    display: inline;
-    text-align: center;
-}
-
 #board {
     background-color: rgb(194, 194, 194);
     margin: auto;
@@ -90,9 +82,21 @@ h1 {
     border-radius: 10px;
 }
 
-#computerCard, #mysteryCard{
+#mysteryCard{
     background-color: white;
     height: 100px;
+    width: 75px;
+    margin:15px 15px 15px 5px;
+    text-align: center;
+    font-size:large;
+    border: solid black;
+    border-radius: 10px;
+}
+
+#computerCard {
+    background-color: white;
+    height: 100px;
+    display: none;
     width: 75px;
     margin:15px 15px 15px 5px;
     text-align: center;
