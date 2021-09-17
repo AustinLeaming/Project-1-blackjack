@@ -15,10 +15,30 @@ body {
     width: 100%;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 100px;
+}
+
+#leftChar {
+    margin: 250px 0 0 95px;
+    height: 300px;
+    display: flex;
+    position: absolute;
+}
+
+#rightChar {
+    height: 300px;
+    display: flex;
+    position: absolute;
+    margin: 250px 0 0 650px;
+}
+
 #board {
     background-color: rgb(194, 194, 194);
     margin: auto;
-    margin-top: 200px;
+    margin-top: 50px;
     height: 500px;
     width: 350px;
     border-radius: 10px;
